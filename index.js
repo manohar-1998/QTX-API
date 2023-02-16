@@ -19,11 +19,13 @@ const rule01Routes = require("./routes/rule01.routes");
 const projectRoutes = require("./routes/projects.routes");
 const employeeRoutes = require("./routes/employee.routes");
 const fieldTypeRoutes = require("./routes/fieldType.routes");
+const documentTypeRoutes = require("./routes/documentType.routes");
 
 app.use("/api/rule01",rule01Routes);
 app.use("/api/project",projectRoutes);
 app.use("/api/employee",employeeRoutes);
 app.use("/api/fieldType",fieldTypeRoutes);
+app.use("/api/documentType",documentTypeRoutes);
 
 
 const PORT = process.env.DB_API_PORT;

@@ -25,7 +25,8 @@ const EmployeeData = sequelize.define(
     },
     projects: {
         field: 'projects',
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:false
     },
     current_project: {
         field: 'current_project',
@@ -41,20 +42,21 @@ const EmployeeData = sequelize.define(
         allowNull: false,
         primaryKey: true,
     },
-    project_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: {
-          model:ProjectsData,
-          key: 'project_id'
-        },
-      }
-    }
+    // project_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull:false,
+      // references: {
+      //   model: {
+      //     model:ProjectsData,
+      //     key: 'project_id'
+      //   },
+      // }
+    // }
   },
   {
     tableName: "emp_table",
     timestamps: false,
   }
 );
-ProjectsData.hasOne(EmployeeData);
+// ProjectsData.hasOne(EmployeeData);
 module.exports = { EmployeeData };

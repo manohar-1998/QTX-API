@@ -40,7 +40,7 @@ const createOrUpdateRule03Data = async (req, res) => {
         current_project: requestBody.current_project,
         employee_name: requestBody.employee_name,
         employee_id: requestBody.employee_id,
-        project_id: requestBody.project_id
+        // project_id: requestBody.project_id
       },
       {
         where: {

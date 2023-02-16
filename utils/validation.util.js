@@ -64,10 +64,35 @@ const validateEmployeeData = async (employeeData) => {
   }
 }
 
+const validateDocumentTypeData = async(documentTypeData) => {
+  const schema = Joi.object({
+    documentname: Joi.boolean().required(),
+    document_id: Joi.string().required(),
+    aadhar_username: Joi.boolean().required(),
+    aadhar_dob: Joi.boolean().required(),
+    aadhar_gender: Joi.boolean().required(),
+    aadhar_address: Joi.boolean().required(),
+    aadhar_number: Joi.boolean().required(),
+    pancard_username: Joi.boolean().required(),
+    pancard_dob: Joi.boolean().required(),
+    pancard_number: Joi.boolean().required(),
+    passport_username: Joi.boolean().required(),
+    passport_dob: Joi.boolean().required(),
+    passport_number: Joi.boolean().required()
+  });
+  try {
+    await schema.validateAsync(documentTypeData);
+  }
+  catch (error){
+    throw error;
+  }
+}
+
 
   module.exports = {
     validateRule01Data,
     validateProjectsData,
     validateEmployeeData,
-    validateFieldTypeConfigData
+    validateFieldTypeConfigData,
+    validateDocumentTypeData,
   }

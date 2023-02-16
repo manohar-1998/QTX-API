@@ -159,12 +159,9 @@ const createOrUpdateEmployeeData = async (empData) => {
   if (empData.employee_id !== "" || empData.employee_id !== null) {
     empData.employee_id = `'${empData.employee_id}'`;
   }
-  if (empData.project_id !== "" || empData.project_id !== null) {
-    empData.project_id = `'${empData.project_id}'`;
-  }
 
-  let queryString = `insert into emp_table(company, location, employee_status, role, projects, current_project, employee_name, employee_id, projects_id)
-                       values(${empData.company}, ${empData.location},${empData.employee_status}, ${empData.role},  ${empData.projects}, ${empData.current_project}, ${empData.employee_name}, ${empData.employee_id}, ${empData.project_id})
+  let queryString = `insert into emp_table(company, location, employee_status, role, projects, current_project, employee_name, employee_id)
+                       values(${empData.company}, ${empData.location},${empData.employee_status}, ${empData.role},  ${empData.projects}, ${empData.current_project}, ${empData.employee_name}, ${empData.employee_id})
                        on duplicate key update
                     company = ${empData.company},
                     location = ${empData.location},
@@ -173,12 +170,48 @@ const createOrUpdateEmployeeData = async (empData) => {
                     projects = ${empData.projects},
                     current_project = ${empData.current_project},
                     employee_name = ${empData.employee_name},
-                    employee_id = ${empData.employee_id},
-                    project_id = ${empData.project_id}
+                    employee_id = ${empData.employee_id}
                        `;
   try {
     const results = await query(queryString);
     return results;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const createOrUpdateDocument = async (docData) => {
+let queryString = `insert into documentTable(documentname,document_id,aadhar_username,aadhar_dob,aadhar_gender,aadhar_address,aadhar_number,pancard_username,pancard_dob,pancard_number,passport_username,passport_dob,passport_number)
+values(${docData.documentname}, ${docData.document_id},${docData.aadhar_username},${docData.aadhar_dob},${docData.aadhar_gender},${docData.aadhar_address},${docData.aadhar_number},${docData.pancard_username},${docData.pancard_dob},${docData.pancard_number},${docData.passport_username},${docData.passport_dob},${docData.passport_number},)
+on duplicate key update
+documentname = ${docData.documentname},
+document_id = ${docData.document_id},
+aadhar_username = ${docData.aadhar_username},
+aadhar_dob = ${docData.aadhar_dob},
+aadhar_gender = ${docData.aadhar_gender},
+aadhar_address = ${docData.aadhar_address},
+aadhar_number = ${docData.aadhar_number},
+pancard_username = ${docData.pancard_username},
+pancard_dob = ${docData.pancard_dob},
+pancard_number = ${docData.pancard_number},
+passport_username = ${docData.passport_username},
+passport_dob = ${docData.passport_dob},
+passport_number = ${docData.passport_number},
+`;
+try{
+  const result = await query(queryString);
+  return result
+} catch (error){
+  throw error;
+}
+}
+
+const getDocumentDetailsListById = async (document_id) => {
+  let queryString = `select * from documentTable where document_id = ${document_id}`;
+
+  try {
+    let result = await query(queryString);
+    return result;
   } catch (error) {
     throw error;
   }
@@ -195,4 +228,6 @@ module.exports = {
   getAllProjects,
   getProjectsListById,
   getFieldTypeConfig,
+  createOrUpdateDocument,
+  getDocumentDetailsListById,
 };
